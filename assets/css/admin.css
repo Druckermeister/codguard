@@ -1,0 +1,434 @@
+/**
+ * CodGuard Admin Styles
+ * Includes Phase 1 and Phase 3 styles
+ */
+
+/* Settings Wrap */
+.codguard-settings-wrap {
+    max-width: 1200px;
+}
+
+/* Header Section */
+.codguard-settings-header {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.codguard-settings-header p {
+    margin: 0;
+    flex: 1;
+}
+
+/* Status Badge */
+.codguard-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.codguard-status .dashicons {
+    margin-right: 6px;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.codguard-status-enabled {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.codguard-status-disabled {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+/* Settings Sections */
+.codguard-settings-section {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.codguard-settings-section h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dcdcde;
+}
+
+.codguard-settings-section > .description {
+    margin-bottom: 20px;
+    color: #646970;
+}
+
+/* Form Elements */
+.codguard-settings-section .form-table {
+    margin-top: 0;
+}
+
+.codguard-settings-section .form-table th {
+    padding: 15px 10px 15px 0;
+    font-weight: 600;
+}
+
+.codguard-settings-section .form-table td {
+    padding: 15px 10px;
+}
+
+.required {
+    color: #d63638;
+    font-weight: bold;
+}
+
+/* Payment Method Checkboxes */
+.codguard-settings-section fieldset label {
+    display: block;
+    margin-bottom: 8px;
+    padding: 5px 0;
+}
+
+.codguard-settings-section fieldset input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* Info Box */
+.codguard-info-box {
+    background: #f0f6fc;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.codguard-info-box h3 {
+    margin-top: 0;
+}
+
+/* Submit Button */
+.codguard-settings-wrap .submit {
+    padding: 0;
+    margin: 20px 0;
+}
+
+/* Custom Status Message */
+#codguard-status-message {
+    padding: 10px 15px;
+    border-radius: 4px;
+    border-left: 4px solid;
+    margin-top: 10px;
+}
+
+#codguard-status-message.notice-success {
+    background: #d4edda;
+    border-left-color: #28a745;
+    color: #155724;
+}
+
+#codguard-status-message.notice-error {
+    background: #f8d7da;
+    border-left-color: #dc3545;
+    color: #721c24;
+}
+
+#codguard-status-message p {
+    margin: 0;
+}
+
+/* Custom Status Row Styling */
+.codguard-custom-status-row {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 15px !important;
+}
+
+.codguard-custom-status-row th {
+    padding-top: 20px !important;
+}
+
+.codguard-custom-status-row td {
+    padding-top: 20px !important;
+}
+
+/* ============================================
+   Phase 3: Sync Status Styles
+   ============================================ */
+
+/* Sync Status Section */
+.codguard-sync-status-section {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.codguard-sync-status-section h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dcdcde;
+}
+
+/* Sync Status Grid */
+.codguard-sync-status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.codguard-sync-status-item {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.codguard-sync-status-item h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #646970;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.codguard-sync-status-item .value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3338;
+}
+
+.codguard-sync-status-item .value.success {
+    color: #2e7d32;
+}
+
+.codguard-sync-status-item .value.error {
+    color: #d63638;
+}
+
+.codguard-sync-status-item .value.pending {
+    color: #856404;
+}
+
+/* Sync Status Badge */
+.codguard-sync-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.codguard-sync-badge.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.codguard-sync-badge.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.codguard-sync-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.codguard-sync-badge .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+
+/* Manual Sync Button */
+#codguard-manual-sync {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+#codguard-manual-sync .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+#codguard-manual-sync:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Spinning animation for sync button */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.codguard-spinning {
+    animation: spin 1s linear infinite;
+}
+
+/* Sync Message */
+#codguard-sync-message {
+    padding: 10px 15px;
+    border-radius: 4px;
+    border-left: 4px solid;
+    margin-top: 15px;
+}
+
+#codguard-sync-message.notice-success {
+    background: #d4edda;
+    border-left-color: #28a745;
+    color: #155724;
+}
+
+#codguard-sync-message.notice-error {
+    background: #f8d7da;
+    border-left-color: #dc3545;
+    color: #721c24;
+}
+
+#codguard-sync-message p {
+    margin: 0;
+}
+
+/* Sync History Table */
+.codguard-sync-history {
+    margin-top: 20px;
+}
+
+.codguard-sync-history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.codguard-sync-history th,
+.codguard-sync-history td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.codguard-sync-history th {
+    background: #f9f9f9;
+    font-weight: 600;
+    color: #2c3338;
+}
+
+.codguard-sync-history tr:last-child td {
+    border-bottom: none;
+}
+
+.codguard-sync-history .status-success {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.codguard-sync-history .status-failed {
+    color: #d63638;
+    font-weight: 600;
+}
+
+/* Next Sync Info Box */
+.codguard-next-sync-info {
+    background: #e7f3ff;
+    border: 1px solid #b3d9ff;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.codguard-next-sync-info .dashicons {
+    color: #0073aa;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.codguard-next-sync-info .info-text {
+    flex: 1;
+}
+
+.codguard-next-sync-info .info-text strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #0073aa;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 782px) {
+    .codguard-settings-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .codguard-status {
+        margin-top: 15px;
+    }
+    
+    .codguard-settings-section .form-table th,
+    .codguard-settings-section .form-table td {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+    
+    .codguard-settings-section .form-table th {
+        padding-bottom: 5px;
+    }
+    
+    .codguard-sync-status-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    #codguard-manual-sync {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* WordPress Admin Notices Override */
+.codguard-settings-wrap + .notice {
+    margin-top: 20px;
+}
+
+/* Help Text */
+.codguard-help-text {
+    font-size: 13px;
+    color: #646970;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Code snippets */
+.codguard-code {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-family: monospace;
+    font-size: 12px;
+}
