@@ -1,8 +1,6 @@
 === CodGuard for WooCommerce ===
-Version: 2.0.0
-Release Date: November 2, 2025
-
-COMPLETE PLUGIN - Phase 1 + Phase 3 Fully Merged
+Version: 2.0.9
+Release Date: November 3, 2025
 
 == What's Included ==
 
@@ -41,7 +39,7 @@ Phase 3: Daily Order Upload ✅
 
 == Support ==
 
-Email: support@codguard.com
+Email: info@codguard.com
 API Docs: https://codguard.com/docs
 
 == Files ==
@@ -49,5 +47,3 @@ API Docs: https://codguard.com/docs
 9 PHP files (fully functional)
 2 CSS/JS files (admin interface)
 README.txt (this file)
-
-Ready for production deployment!

@@ -202,8 +202,8 @@ class CodGuard_Order_Sync {
     /**
      * Prepare order data for API
      * 
-     * Now uploads ALL orders with ALL payment methods and ALL statuses
-     * Refused status gets outcome = -1, all others get outcome = 1
+     * Now uploads ONLY orders matching configured statuses
+     * Refused status gets outcome = -1, successful status gets outcome = 1
      *
      * @param array $orders Array of WC_Order objects
      * @return array Formatted order data
@@ -212,8 +212,30 @@ class CodGuard_Order_Sync {
         $shop_id = codguard_get_shop_id();
         $status_mappings = codguard_get_status_mappings();
         $order_data = array();
+        
+        // Get configured statuses
+        $successful_status = $status_mappings['good'];
+        $refused_status = $status_mappings['refused'];
+
+        codguard_log(sprintf(
+            'Filtering orders: Successful=%s, Refused=%s',
+            $successful_status,
+            $refused_status
+        ), 'debug');
 
         foreach ($orders as $order) {
+            $order_status = $order->get_status();
+            
+            // Skip orders that don't match either configured status
+            if ($order_status !== $successful_status && $order_status !== $refused_status) {
+                codguard_log(sprintf(
+                    'Skipping order #%d: Status "%s" does not match configured statuses',
+                    $order->get_id(),
+                    $order_status
+                ), 'debug');
+                continue;
+            }
+
             // Get billing info
             $billing_email = $order->get_billing_email();
             $billing_phone = $order->get_billing_phone();
@@ -221,7 +243,6 @@ class CodGuard_Order_Sync {
             $billing_postcode = $order->get_billing_postcode();
             $billing_address = $this->format_address($order);
             $payment_method = $order->get_payment_method();
-            $order_status = $order->get_status();
 
             // Skip if no email (required field)
             if (empty($billing_email)) {
@@ -230,11 +251,8 @@ class CodGuard_Order_Sync {
             }
 
             // Determine outcome based on status
-            // Refused status = -1, all others = 1
-            $outcome = 1; // Default to 1
-            if ($order_status === $status_mappings['refused']) {
-                $outcome = -1;
-            }
+            // Refused status = -1, successful status = 1
+            $outcome = ($order_status === $refused_status) ? -1 : 1;
 
             // Add to order data
             $order_data[] = array(
@@ -259,7 +277,12 @@ class CodGuard_Order_Sync {
             ), 'debug');
         }
 
-        codguard_log(sprintf('Prepared %d orders for upload (refused=-1, others=1)', count($order_data)), 'info');
+        codguard_log(sprintf(
+            'Prepared %d orders for upload (refused=%d, successful=%d)',
+            count($order_data),
+            $refused_status,
+            $successful_status
+        ), 'info');
 
         return $order_data;
     }

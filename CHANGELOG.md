@@ -2,7 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.0.8] - 2025-11-03
+## [2.0.9] - 2025-11-03
+
+### Changed
+- **BREAKING:** Now uploads ONLY orders matching configured statuses
+- Orders with "Successful Order Status" → outcome = 1
+- Orders with "Refused Order Status" → outcome = -1
+- All other order statuses are now skipped (not uploaded)
+
+### Improved
+- Better logging showing which orders are skipped and why
+- Status filtering based on admin panel configuration
+
+### Migration Note
+- If you were relying on all orders being uploaded, you may need to adjust your "Successful Order Status" and "Refused Order Status" settings
+- Check WooCommerce → Status → Logs → codguard to see which orders are being synced
 
 ### Added
 - Proper WP-Cron scheduling that persists across sessions
