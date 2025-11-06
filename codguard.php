@@ -3,10 +3,10 @@
  * Plugin Name: CodGuard for WooCommerce
  * Plugin URI: https://codguard.com
  * Description: Integrates with the CodGuard API to manage cash-on-delivery payment options based on customer ratings and synchronize order data.
- * Version: 2.1.9
+ * Version: 2.1.10
  * Author: CodGuard
  * Author URI: https://codguard.com
- * Text Domain: codguard-woocommerce
+ * Text Domain: codguard
  * Domain Path: /languages
  * Requires at least: 5.0
  * Requires PHP: 7.4
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('CODGUARD_VERSION', '2.1.9');
+define('CODGUARD_VERSION', '2.1.10');
 define('CODGUARD_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CODGUARD_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('CODGUARD_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -35,9 +35,9 @@ require CODGUARD_PLUGIN_DIR . 'vendor/autoload.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 $codguard_update_checker = PucFactory::buildUpdateChecker(
-    'https://github.com/Druckermeister/codguard-woocommerce/',
+    'https://github.com/Druckermeister/codguard/',
     __FILE__,
-    'codguard-woocommerce'
+    'codguard'
 );
 
 // Enable GitHub releases
@@ -73,7 +73,7 @@ function codguard_is_woocommerce_active() {
 function codguard_woocommerce_missing_notice() {
     ?>
     <div class="notice notice-error">
-        <p><?php esc_html_e('CodGuard for WooCommerce requires WooCommerce to be installed and active.', 'codguard-woocommerce'); ?></p>
+        <p><?php esc_html_e('CodGuard for WooCommerce requires WooCommerce to be installed and active.', 'codguard'); ?></p>
     </div>
     <?php
 }
@@ -123,7 +123,7 @@ function codguard_activate() {
     // Check if WooCommerce is active
     if (!codguard_is_woocommerce_active()) {
         deactivate_plugins(plugin_basename(__FILE__));
-        wp_die(esc_html__('CodGuard for WooCommerce requires WooCommerce to be installed and active.', 'codguard-woocommerce'));
+        wp_die(esc_html__('CodGuard for WooCommerce requires WooCommerce to be installed and active.', 'codguard'));
     }
 
     // Load required files
@@ -211,7 +211,7 @@ function codguard_register_custom_order_statuses() {
             'label_count' => array(
                 0 => $label . ' <span class="count">(%s)</span>',
                 1 => $label . ' <span class="count">(%s)</span>',
-                'domain' => 'codguard-woocommerce'
+                'domain' => 'codguard'
             )
         ));
     }
@@ -241,7 +241,7 @@ function codguard_add_custom_order_statuses($order_statuses) {
  * Add action links to plugin page
  */
 function codguard_plugin_action_links($links) {
-    $settings_link = '<a href="' . esc_url(admin_url('admin.php?page=codguard-settings')) . '">' . esc_html__('Settings', 'codguard-woocommerce') . '</a>';
+    $settings_link = '<a href="' . esc_url(admin_url('admin.php?page=codguard-settings')) . '">' . esc_html__('Settings', 'codguard') . '</a>';
     array_unshift($links, $settings_link);
     return $links;
 }

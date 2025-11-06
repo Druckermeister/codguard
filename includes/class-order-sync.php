@@ -5,7 +5,7 @@
  * 
  * @package CodGuard
  * @since 2.0.0
- * @version 2.0.9
+ * @version 2.1.10
  */
 
 // Exit if accessed directly
@@ -57,7 +57,7 @@ class CodGuard_Order_Sync {
     public function add_cron_schedule($schedules) {
         $schedules['codguard_daily'] = array(
             'interval' => DAY_IN_SECONDS,
-            'display'  => __('Once Daily (CodGuard)', 'codguard-woocommerce')
+            'display'  => __('Once Daily (CodGuard)', 'codguard')
         );
         return $schedules;
     }
@@ -252,8 +252,8 @@ class CodGuard_Order_Sync {
             }
 
             // Determine outcome based on status
-            // Refused status = -1, successful status = 1
-            $outcome = ($order_status === $refused_status) ? -1 : 1;
+            // Refused status = "-1", successful status = "1"
+            $outcome = ($order_status === $refused_status) ? '-1' : '1';
 
             // Add to order data
             $order_data[] = array(
@@ -269,7 +269,7 @@ class CodGuard_Order_Sync {
             );
 
             codguard_log(sprintf(
-                'Order #%d added: Status=%s, Payment=%s, Email=%s, Outcome=%d',
+                'Order #%d added: Status=%s, Payment=%s, Email=%s, Outcome=%s',
                 $order->get_id(),
                 $order_status,
                 $payment_method,
@@ -370,14 +370,14 @@ class CodGuard_Order_Sync {
         // Verify nonce
         if (!check_ajax_referer('codguard_admin', 'nonce', false)) {
             wp_send_json_error(array(
-                'message' => __('Security check failed.', 'codguard-woocommerce')
+                'message' => __('Security check failed.', 'codguard')
             ));
         }
 
         // Check permissions
         if (!current_user_can('manage_woocommerce')) {
             wp_send_json_error(array(
-                'message' => __('You do not have sufficient permissions.', 'codguard-woocommerce')
+                'message' => __('You do not have sufficient permissions.', 'codguard')
             ));
         }
 
@@ -386,7 +386,7 @@ class CodGuard_Order_Sync {
         
         if (empty($orders)) {
             wp_send_json_success(array(
-                'message' => __('No orders found for yesterday.', 'codguard-woocommerce'),
+                'message' => __('No orders found for yesterday.', 'codguard'),
                 'count' => 0
             ));
             return;
@@ -397,7 +397,7 @@ class CodGuard_Order_Sync {
         
         if (empty($order_data)) {
             wp_send_json_success(array(
-                'message' => __('No valid orders found for yesterday (missing email addresses).', 'codguard-woocommerce'),
+                'message' => __('No valid orders found for yesterday (missing email addresses).', 'codguard'),
                 'count' => 0
             ));
             return;
@@ -424,7 +424,7 @@ class CodGuard_Order_Sync {
 
         wp_send_json_success(array(
             /* translators: %d: number of orders synced */
-            'message' => sprintf(__('%d orders synced successfully. Refused status = -1, others = 1.', 'codguard-woocommerce'), count($order_data)),
+            'message' => sprintf(__('%d orders synced successfully. Refused status = -1, others = 1.', 'codguard'), count($order_data)),
             'count' => count($order_data)
         ));
     }

@@ -29,8 +29,8 @@ class CodGuard_Admin_Settings {
     public static function add_admin_menu() {
         add_submenu_page(
             'woocommerce',
-            __('CodGuard Settings', 'codguard-woocommerce'),
-            __('CodGuard', 'codguard-woocommerce'),
+            __('CodGuard Settings', 'codguard'),
+            __('CodGuard', 'codguard'),
             'manage_woocommerce',
             'codguard-settings',
             array(__CLASS__, 'render_settings_page')
@@ -70,20 +70,20 @@ class CodGuard_Admin_Settings {
             'nonce' => wp_create_nonce('codguard_admin'),
             'i18n' => array(
                 // Phase 1: Custom status creation
-                'emptyStatusName' => esc_html__('Please enter a status name.', 'codguard-woocommerce'),
-                'statusTooLong' => esc_html__('Status name must not exceed 50 characters.', 'codguard-woocommerce'),
-                'creating' => esc_html__('Creating...', 'codguard-woocommerce'),
-                'createStatus' => esc_html__('Create Status', 'codguard-woocommerce'),
-                'genericError' => esc_html__('An error occurred. Please try again.', 'codguard-woocommerce'),
-                'reloadPage' => esc_html__('Status created successfully! Reload the page to see it in the dropdowns?', 'codguard-woocommerce'),
+                'emptyStatusName' => esc_html__('Please enter a status name.', 'codguard'),
+                'statusTooLong' => esc_html__('Status name must not exceed 50 characters.', 'codguard'),
+                'creating' => esc_html__('Creating...', 'codguard'),
+                'createStatus' => esc_html__('Create Status', 'codguard'),
+                'genericError' => esc_html__('An error occurred. Please try again.', 'codguard'),
+                'reloadPage' => esc_html__('Status created successfully! Reload the page to see it in the dropdowns?', 'codguard'),
 
                 // Phase 3: Manual sync
-                'confirmSync' => esc_html__('Are you sure you want to sync yesterday\'s orders now?', 'codguard-woocommerce'),
-                'syncing' => esc_html__('Syncing...', 'codguard-woocommerce'),
-                'syncSuccess' => esc_html__('Orders synced successfully!', 'codguard-woocommerce'),
-                'syncFailed' => esc_html__('Sync failed. Please check the logs for details.', 'codguard-woocommerce'),
-                'syncError' => esc_html__('An error occurred during sync. Please try again.', 'codguard-woocommerce'),
-                'justNow' => esc_html__('Just now', 'codguard-woocommerce')
+                'confirmSync' => esc_html__('Are you sure you want to sync yesterday\'s orders now?', 'codguard'),
+                'syncing' => esc_html__('Syncing...', 'codguard'),
+                'syncSuccess' => esc_html__('Orders synced successfully!', 'codguard'),
+                'syncFailed' => esc_html__('Sync failed. Please check the logs for details.', 'codguard'),
+                'syncError' => esc_html__('An error occurred during sync. Please try again.', 'codguard'),
+                'justNow' => esc_html__('Just now', 'codguard')
             )
         ));
     }
@@ -94,7 +94,7 @@ class CodGuard_Admin_Settings {
     public static function render_settings_page() {
         // Check user capabilities
         if (!current_user_can('manage_woocommerce')) {
-            wp_die(esc_html__('You do not have sufficient permissions to access this page.', 'codguard-woocommerce'));
+            wp_die(esc_html__('You do not have sufficient permissions to access this page.', 'codguard'));
         }
 
         // Get current settings
@@ -110,12 +110,12 @@ class CodGuard_Admin_Settings {
     public static function save_settings() {
         // Verify nonce
         if (!isset($_POST['codguard_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['codguard_nonce'])), 'codguard_settings_save')) {
-            wp_die(esc_html__('Security check failed.', 'codguard-woocommerce'));
+            wp_die(esc_html__('Security check failed.', 'codguard'));
         }
 
         // Check permissions
         if (!current_user_can('manage_woocommerce')) {
-            wp_die(esc_html__('You do not have sufficient permissions to perform this action.', 'codguard-woocommerce'));
+            wp_die(esc_html__('You do not have sufficient permissions to perform this action.', 'codguard'));
         }
 
         // Sanitize settings
@@ -150,7 +150,7 @@ class CodGuard_Admin_Settings {
             wp_redirect(admin_url('admin.php?page=codguard-settings&saved=1'));
         } else {
             // Error saving
-            set_transient('codguard_settings_errors', array(__('Failed to save settings. Please try again.', 'codguard-woocommerce')), 45);
+            set_transient('codguard_settings_errors', array(__('Failed to save settings. Please try again.', 'codguard')), 45);
             wp_redirect(admin_url('admin.php?page=codguard-settings&error=1'));
         }
         exit;
@@ -171,7 +171,7 @@ class CodGuard_Admin_Settings {
             delete_transient('codguard_settings_saved');
             ?>
             <div class="notice notice-success is-dismissible">
-                <p><?php esc_html_e('CodGuard settings saved successfully!', 'codguard-woocommerce'); ?></p>
+                <p><?php esc_html_e('CodGuard settings saved successfully!', 'codguard'); ?></p>
             </div>
             <?php
         }
@@ -192,7 +192,7 @@ class CodGuard_Admin_Settings {
         if (!CodGuard_Settings_Manager::is_enabled()) {
             ?>
             <div class="notice notice-warning">
-                <p><?php esc_html_e('CodGuard is currently disabled. Please enter your API credentials to enable the plugin.', 'codguard-woocommerce'); ?></p>
+                <p><?php esc_html_e('CodGuard is currently disabled. Please enter your API credentials to enable the plugin.', 'codguard'); ?></p>
             </div>
             <?php
         }
@@ -205,14 +205,14 @@ class CodGuard_Admin_Settings {
         // Verify nonce
         if (!check_ajax_referer('codguard_admin', 'nonce', false)) {
             wp_send_json_error(array(
-                'message' => __('Security check failed.', 'codguard-woocommerce')
+                'message' => __('Security check failed.', 'codguard')
             ));
         }
 
         // Check permissions
         if (!current_user_can('manage_woocommerce')) {
             wp_send_json_error(array(
-                'message' => __('You do not have sufficient permissions.', 'codguard-woocommerce')
+                'message' => __('You do not have sufficient permissions.', 'codguard')
             ));
         }
 
@@ -221,13 +221,13 @@ class CodGuard_Admin_Settings {
 
         if (empty($status_name)) {
             wp_send_json_error(array(
-                'message' => __('Status name is required.', 'codguard-woocommerce')
+                'message' => __('Status name is required.', 'codguard')
             ));
         }
 
         if (strlen($status_name) > 50) {
             wp_send_json_error(array(
-                'message' => __('Status name must not exceed 50 characters.', 'codguard-woocommerce')
+                'message' => __('Status name must not exceed 50 characters.', 'codguard')
             ));
         }
 
@@ -241,7 +241,7 @@ class CodGuard_Admin_Settings {
         $existing_statuses = wc_get_order_statuses();
         if (isset($existing_statuses[$status_slug])) {
             wp_send_json_error(array(
-                'message' => __('A status with this name already exists.', 'codguard-woocommerce')
+                'message' => __('A status with this name already exists.', 'codguard')
             ));
         }
 
@@ -257,14 +257,14 @@ class CodGuard_Admin_Settings {
 
             wp_send_json_success(array(
                 /* translators: %s: name of the order status */
-                'message' => sprintf(__('Order status "%s" created successfully!', 'codguard-woocommerce'), $status_name),
+                'message' => sprintf(__('Order status "%s" created successfully!', 'codguard'), $status_name),
                 'slug' => $status_slug_clean,
                 'label' => $status_name
             ));
         } catch (Exception $e) {
             codguard_log('Error creating custom status: ' . $e->getMessage(), 'error');
             wp_send_json_error(array(
-                'message' => __('Failed to create status. Please try again.', 'codguard-woocommerce')
+                'message' => __('Failed to create status. Please try again.', 'codguard')
             ));
         }
     }

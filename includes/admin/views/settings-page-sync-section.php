@@ -2,8 +2,8 @@
 <!-- This should be added to the settings-page.php after the Rating Settings section -->
 
 <div class="codguard-settings-section codguard-sync-status-section">
-    <h2><?php esc_html_e('Order Sync Status', 'codguard-woocommerce'); ?></h2>
-    <p class="description"><?php esc_html_e('Daily order synchronization with CodGuard API. Orders are uploaded at 02:00 local time.', 'codguard-woocommerce'); ?></p>
+    <h2><?php esc_html_e('Order Sync Status', 'codguard'); ?></h2>
+    <p class="description"><?php esc_html_e('Daily order synchronization with CodGuard API. Orders are uploaded at 02:00 local time.', 'codguard'); ?></p>
 
     <?php
     // Get sync status
@@ -18,17 +18,17 @@
     <div class="codguard-sync-status-grid">
         <!-- Schedule Status -->
         <div class="codguard-sync-status-item">
-            <h4><?php esc_html_e('Schedule Status', 'codguard-woocommerce'); ?></h4>
+            <h4><?php esc_html_e('Schedule Status', 'codguard'); ?></h4>
             <div class="value">
                 <?php if ($is_scheduled && $is_enabled) : ?>
                     <span class="codguard-sync-badge success">
                         <span class="dashicons dashicons-yes-alt"></span>
-                        <?php esc_html_e('Active', 'codguard-woocommerce'); ?>
+                        <?php esc_html_e('Active', 'codguard'); ?>
                     </span>
                 <?php else : ?>
                     <span class="codguard-sync-badge error">
                         <span class="dashicons dashicons-warning"></span>
-                        <?php esc_html_e('Inactive', 'codguard-woocommerce'); ?>
+                        <?php esc_html_e('Inactive', 'codguard'); ?>
                     </span>
                 <?php endif; ?>
             </div>
@@ -36,13 +36,13 @@
 
         <!-- Next Sync Time -->
         <div class="codguard-sync-status-item">
-            <h4><?php esc_html_e('Next Scheduled Sync', 'codguard-woocommerce'); ?></h4>
+            <h4><?php esc_html_e('Next Scheduled Sync', 'codguard'); ?></h4>
             <div class="value <?php echo $is_scheduled ? 'success' : 'pending'; ?>">
                 <?php
                 if ($next_sync) {
                     echo esc_html($next_sync);
                 } else {
-                    esc_html_e('Not scheduled', 'codguard-woocommerce');
+                    esc_html_e('Not scheduled', 'codguard');
                 }
                 ?>
             </div>
@@ -50,26 +50,26 @@
 
         <!-- Last Sync Status -->
         <div class="codguard-sync-status-item">
-            <h4><?php esc_html_e('Last Sync', 'codguard-woocommerce'); ?></h4>
+            <h4><?php esc_html_e('Last Sync', 'codguard'); ?></h4>
             <div class="value">
                 <?php if ($last_sync) : ?>
                     <span id="codguard-last-sync">
-                        <?php echo esc_html(human_time_diff($last_sync, current_time('timestamp')) . ' ' . __('ago', 'codguard-woocommerce')); ?>
+                        <?php echo esc_html(human_time_diff($last_sync, current_time('timestamp')) . ' ' . __('ago', 'codguard')); ?>
                     </span>
                     <br>
                     <span class="codguard-sync-badge <?php echo $last_sync_status === 'success' ? 'success' : 'error'; ?>">
                         <?php
                         if ($last_sync_status === 'success') {
                             /* translators: %d: number of orders synced */
-                            printf(esc_html__('%d orders synced', 'codguard-woocommerce'), absint($last_sync_count));
+                            printf(esc_html__('%d orders synced', 'codguard'), absint($last_sync_count));
                         } else {
-                            esc_html_e('Failed', 'codguard-woocommerce');
+                            esc_html_e('Failed', 'codguard');
                         }
                         ?>
                     </span>
                 <?php else : ?>
                     <span class="codguard-sync-badge pending">
-                        <?php esc_html_e('Never run', 'codguard-woocommerce'); ?>
+                        <?php esc_html_e('Never run', 'codguard'); ?>
                     </span>
                 <?php endif; ?>
             </div>
@@ -81,10 +81,10 @@
     <div class="codguard-next-sync-info">
         <span class="dashicons dashicons-clock"></span>
         <div class="info-text">
-            <strong><?php esc_html_e('Automatic Sync Scheduled', 'codguard-woocommerce'); ?></strong>
+            <strong><?php esc_html_e('Automatic Sync Scheduled', 'codguard'); ?></strong>
             <p><?php
             /* translators: %s: next sync time */
-            printf(esc_html__('Orders from yesterday will be automatically uploaded to CodGuard at %s.', 'codguard-woocommerce'), '<strong>' . esc_html($next_sync) . '</strong>'); ?></p>
+            printf(esc_html__('Orders from yesterday will be automatically uploaded to CodGuard at %s.', 'codguard'), '<strong>' . esc_html($next_sync) . '</strong>'); ?></p>
         </div>
     </div>
     <?php endif; ?>
@@ -93,10 +93,10 @@
     <div style="margin-top: 20px;">
         <button type="button" id="codguard-manual-sync" class="button button-secondary">
             <span class="dashicons dashicons-update"></span>
-            <span class="button-text"><?php esc_html_e('Sync Now', 'codguard-woocommerce'); ?></span>
+            <span class="button-text"><?php esc_html_e('Sync Now', 'codguard'); ?></span>
         </button>
         <p class="description" style="margin-top: 10px;">
-            <?php esc_html_e('Manually trigger order synchronization for yesterday\'s orders. This will upload all COD orders from the previous day to CodGuard.', 'codguard-woocommerce'); ?>
+            <?php esc_html_e('Manually trigger order synchronization for yesterday\'s orders. This will upload all COD orders from the previous day to CodGuard.', 'codguard'); ?>
         </p>
     </div>
 
@@ -109,14 +109,14 @@
     if (!empty($sync_history)) :
     ?>
     <div class="codguard-sync-history">
-        <h3><?php esc_html_e('Recent Sync History', 'codguard-woocommerce'); ?></h3>
+        <h3><?php esc_html_e('Recent Sync History', 'codguard'); ?></h3>
         <table>
             <thead>
                 <tr>
-                    <th><?php esc_html_e('Date/Time', 'codguard-woocommerce'); ?></th>
-                    <th><?php esc_html_e('Status', 'codguard-woocommerce'); ?></th>
-                    <th><?php esc_html_e('Orders', 'codguard-woocommerce'); ?></th>
-                    <th><?php esc_html_e('Details', 'codguard-woocommerce'); ?></th>
+                    <th><?php esc_html_e('Date/Time', 'codguard'); ?></th>
+                    <th><?php esc_html_e('Status', 'codguard'); ?></th>
+                    <th><?php esc_html_e('Orders', 'codguard'); ?></th>
+                    <th><?php esc_html_e('Details', 'codguard'); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -125,7 +125,7 @@
                     <td><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), $entry['timestamp'])); ?></td>
                     <td>
                         <span class="status-<?php echo esc_attr($entry['status']); ?>">
-                            <?php echo esc_html($entry['status'] === 'success' ? __('Success', 'codguard-woocommerce') : __('Failed', 'codguard-woocommerce')); ?>
+                            <?php echo esc_html($entry['status'] === 'success' ? __('Success', 'codguard') : __('Failed', 'codguard')); ?>
                         </span>
                     </td>
                     <td><?php echo absint($entry['count']); ?></td>
@@ -139,19 +139,19 @@
 
     <!-- Help Section -->
     <div class="codguard-info-box" style="margin-top: 20px;">
-        <h3><?php esc_html_e('How Order Sync Works', 'codguard-woocommerce'); ?></h3>
+        <h3><?php esc_html_e('How Order Sync Works', 'codguard'); ?></h3>
         <ul style="margin-left: 20px;">
-            <li><?php esc_html_e('Orders are automatically synced every day at 02:00 (site local time)', 'codguard-woocommerce'); ?></li>
-            <li><?php esc_html_e('Only COD (Cash on Delivery) orders are synced', 'codguard-woocommerce'); ?></li>
-            <li><?php esc_html_e('Order status is mapped to outcomes based on your configuration above', 'codguard-woocommerce'); ?></li>
+            <li><?php esc_html_e('Orders are automatically synced every day at 02:00 (site local time)', 'codguard'); ?></li>
+            <li><?php esc_html_e('Only COD (Cash on Delivery) orders are synced', 'codguard'); ?></li>
+            <li><?php esc_html_e('Order status is mapped to outcomes based on your configuration above', 'codguard'); ?></li>
             <li><?php
             /* translators: %s: successful order status name */
-            printf(esc_html__('Successful orders (status: %s) are reported as outcome: 1', 'codguard-woocommerce'), '<code>' . esc_html($settings['good_status']) . '</code>'); ?></li>
+            printf(esc_html__('Successful orders (status: %s) are reported as outcome: 1', 'codguard'), '<code>' . esc_html($settings['good_status']) . '</code>'); ?></li>
             <li><?php
             /* translators: %s: refused order status name */
-            printf(esc_html__('Refused orders (status: %s) are reported as outcome: -1', 'codguard-woocommerce'), '<code>' . esc_html($settings['refused_status']) . '</code>'); ?></li>
-            <li><?php esc_html_e('You can trigger a manual sync anytime using the "Sync Now" button', 'codguard-woocommerce'); ?></li>
-            <li><?php esc_html_e('View detailed logs in WooCommerce → Status → Logs → select "codguard"', 'codguard-woocommerce'); ?></li>
+            printf(esc_html__('Refused orders (status: %s) are reported as outcome: -1', 'codguard'), '<code>' . esc_html($settings['refused_status']) . '</code>'); ?></li>
+            <li><?php esc_html_e('You can trigger a manual sync anytime using the "Sync Now" button', 'codguard'); ?></li>
+            <li><?php esc_html_e('View detailed logs in WooCommerce → Status → Logs → select "codguard"', 'codguard'); ?></li>
         </ul>
     </div>
 </div>

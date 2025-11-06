@@ -2,13 +2,17 @@
 Contributors: codguard
 Tags: woocommerce, payment, cod, cash on delivery, fraud prevention
 Requires at least: 5.0
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.1.9
+Stable tag: 2.1.10
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Version: 2.1.9
-Release Date: November 6, 2025
+
+Integrates with CodGuard API to manage cash-on-delivery payments based on customer ratings and synchronize order data automatically.
+
+== Description ==
+
+CodGuard for WooCommerce helps you manage COD (Cash on Delivery) orders by checking customer ratings and automatically syncing order data with the CodGuard platform.
 
 == What's Included ==
 

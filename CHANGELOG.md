@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.10] - 2025-11-06
+
+### Changed
+- **Final Repository Rename**: Complete rename from `codguard-woocommerce` to `codguard`
+  - Updated all documentation files (CHANGELOG.md, INSTALL.md, TESTING.md)
+  - Updated composer package name to `druckermeister/codguard`
+  - Simplified plugin slug to just `codguard`
+  - All references now consistent across the codebase
+
+### Fixed
+- **README.txt Compliance**:
+  - Updated "Tested up to" to WordPress 6.8
+  - Fixed stable tag mismatch (now 2.1.10)
+  - Added short description for WordPress.org compatibility
+
+### Technical Details
+- Repository URL: https://github.com/Druckermeister/codguard
+- Plugin slug: `codguard` (simplified from `codguard-woocommerce`)
+- Text domain: `codguard` (already correct)
+- All documentation now uses consistent naming
+
+---
+
 ## [2.1.9] - 2025-11-06
 
 ### Fixed
@@ -21,13 +44,13 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - **Repository Rename**: Repository and folder name changed to all lowercase
-  - Old: `CodGuard-Woocommerce` → New: `codguard-woocommerce`
+  - Old: `CodGuard-Woocommerce` → New: `codguard`
   - Ensures text domain matches plugin slug exactly
   - Resolves "Mismatched text domain" warning
 
 ### Technical Details
-- Repository URL: https://github.com/Druckermeister/codguard-woocommerce
-- Text domain: `codguard-woocommerce` (matches folder name)
+- Repository URL: https://github.com/Druckermeister/codguard
+- Text domain: `codguard` (matches folder name)
 - No code changes - documentation release only
 
 ---
@@ -53,7 +76,7 @@ All remaining plugin checker issues resolved for WordPress.org submission:
 #### Code Standards
 - **Date Functions**: Changed `date()` to `gmdate()` in class-order-sync.php (line 85) for UTC timezone compliance
 - **Deprecated Function Removal**: Removed `load_plugin_textdomain()` - WordPress auto-loads translations since 4.6
-- **Text Domain**: Verified all instances correctly use 'codguard-woocommerce' (lowercase)
+- **Text Domain**: Verified all instances correctly use 'codguard' (lowercase)
 
 #### Plugin Repository Requirements
 - **README.txt**: Added all required WordPress.org plugin repository headers:
@@ -72,7 +95,7 @@ All remaining plugin checker issues resolved for WordPress.org submission:
 ## [2.1.6] - 2025-11-06
 
 ### Fixed
-- **Text Domain Standardization**: Changed text domain from 'CodGuard-Woocommerce' to 'codguard-woocommerce' (all lowercase)
+- **Text Domain Standardization**: Changed text domain from 'CodGuard-Woocommerce' to 'codguard' (all lowercase)
 - **WordPress Security Compliance**: Fixed all escaping issues across the plugin (79 changes)
 - **Created languages directory** for translation files
 
@@ -130,7 +153,7 @@ All remaining plugin checker issues resolved for WordPress.org submission:
 ## [2.1.3] - 2025-11-06
 
 ### Changed
-- Updated text domain from 'codguard' to 'CodGuard-Woocommerce' across all files
+- Updated text domain across all files
 - Improved compatibility with WordPress plugin standards
 - Updated for WordPress plugin checker requirements
 

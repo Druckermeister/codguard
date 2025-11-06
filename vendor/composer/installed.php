@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'druckermeister/codguard-woocommerce',
+        'name' => 'druckermeister/codguard',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
         'reference' => 'da0e57049b2dbff7c34721c4c6ac273bf21a0ae2',
@@ -10,7 +10,7 @@
         'dev' => true,
     ),
     'versions' => array(
-        'druckermeister/codguard-woocommerce' => array(
+        'druckermeister/codguard' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'reference' => 'da0e57049b2dbff7c34721c4c6ac273bf21a0ae2',

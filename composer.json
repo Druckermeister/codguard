@@ -1,5 +1,5 @@
 {
-    "name": "druckermeister/codguard-woocommerce",
+    "name": "druckermeister/codguard",
     "description": "CodGuard WooCommerce Plugin",
     "type": "wordpress-plugin",
     "require": {

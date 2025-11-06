@@ -224,7 +224,7 @@ $enabled = codguard_is_enabled();
 1. **Prepare Package**
    ```bash
    cd /path/to/wp-content/plugins
-   zip -r codguard-woocommerce.zip codguard-woocommerce/ -x "*.git*" "*.DS_Store" "node_modules/*"
+   zip -r codguard.zip codguard/ -x "*.git*" "*.DS_Store" "node_modules/*"
    ```
 
 2. **Test on Staging**

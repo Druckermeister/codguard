@@ -13,13 +13,13 @@ Before installing, ensure you have:
 ### Method 1: WordPress Admin Upload (Recommended)
 
 1. **Download the Plugin**
-   - Download the `codguard-woocommerce.zip` file
+   - Download the `codguard.zip` file
 
 2. **Upload via WordPress Admin**
    - Log in to your WordPress admin panel
    - Navigate to `Plugins > Add New`
    - Click `Upload Plugin` button at the top
-   - Click `Choose File` and select `codguard-woocommerce.zip`
+   - Click `Choose File` and select `codguard.zip`
    - Click `Install Now`
 
 3. **Activate the Plugin**
@@ -34,12 +34,12 @@ Before installing, ensure you have:
 ### Method 2: FTP/SFTP Upload
 
 1. **Extract the Plugin**
-   - Unzip `codguard-woocommerce.zip` on your computer
+   - Unzip `codguard.zip` on your computer
 
 2. **Upload via FTP**
    - Connect to your server via FTP/SFTP
    - Navigate to `/wp-content/plugins/`
-   - Upload the entire `codguard-woocommerce` folder
+   - Upload the entire `codguard` folder
 
 3. **Activate via WordPress Admin**
    - Log in to WordPress admin
@@ -58,10 +58,10 @@ Before installing, ensure you have:
 cd /path/to/wordpress
 
 # Install the plugin
-wp plugin install /path/to/codguard-woocommerce.zip
+wp plugin install /path/to/codguard.zip
 
 # Activate the plugin
-wp plugin activate codguard-woocommerce
+wp plugin activate codguard
 
 # Verify activation
 wp plugin list | grep codguard
