@@ -1,5 +1,13 @@
 === CodGuard for WooCommerce ===
-Version: 2.1.6
+Contributors: codguard
+Tags: woocommerce, payment, cod, cash on delivery, fraud prevention
+Requires at least: 5.0
+Tested up to: 6.7
+Requires PHP: 7.4
+Stable tag: 2.1.7
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Version: 2.1.7
 Release Date: November 6, 2025
 
 == What's Included ==

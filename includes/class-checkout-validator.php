@@ -33,29 +33,35 @@ class CodGuard_Checkout_Validator {
     
     /**
      * Check COD rating during checkout process
+     *
+     * Note: Nonce verification is handled by WooCommerce before this hook fires.
+     * WooCommerce verifies 'woocommerce-process-checkout-nonce' in WC_Checkout::process_checkout()
+     * before calling woocommerce_checkout_process and woocommerce_after_checkout_validation hooks.
      */
     public function check_cod_rating() {
         // Already checked in this request
         if (self::$rating_checked) {
             return;
         }
-        
+
         // Check if plugin enabled
         if (!codguard_is_enabled()) {
             return;
         }
-        
+
         // Get chosen payment method
-        $payment_method = isset($_POST['payment_method']) ? sanitize_text_field($_POST['payment_method']) : '';
-        
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified by WooCommerce
+        $payment_method = isset($_POST['payment_method']) ? sanitize_text_field(wp_unslash($_POST['payment_method'])) : '';
+
         // Check if it's a COD method
         $settings = codguard_get_settings();
         if (!in_array($payment_method, $settings['cod_methods'])) {
             return; // Not COD, allow
         }
-        
+
         // Get billing email
-        $email = isset($_POST['billing_email']) ? sanitize_email($_POST['billing_email']) : '';
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified by WooCommerce
+        $email = isset($_POST['billing_email']) ? sanitize_email(wp_unslash($_POST['billing_email'])) : '';
         
         if (empty($email) || !is_email($email)) {
             return; // No valid email, allow

@@ -3,7 +3,7 @@
  * Plugin Name: CodGuard for WooCommerce
  * Plugin URI: https://codguard.com
  * Description: Integrates with the CodGuard API to manage cash-on-delivery payment options based on customer ratings and synchronize order data.
- * Version: 2.1.6
+ * Version: 2.1.7
  * Author: CodGuard
  * Author URI: https://codguard.com
  * Text Domain: codguard-woocommerce
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('CODGUARD_VERSION', '2.1.6');
+define('CODGUARD_VERSION', '2.1.7');
 define('CODGUARD_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CODGUARD_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('CODGUARD_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -123,7 +123,7 @@ function codguard_activate() {
     // Check if WooCommerce is active
     if (!codguard_is_woocommerce_active()) {
         deactivate_plugins(plugin_basename(__FILE__));
-        wp_die(__('CodGuard for WooCommerce requires WooCommerce to be installed and active.', 'codguard-woocommerce'));
+        wp_die(esc_html__('CodGuard for WooCommerce requires WooCommerce to be installed and active.', 'codguard-woocommerce'));
     }
 
     // Load required files
@@ -165,12 +165,11 @@ function codguard_deactivate() {
 register_deactivation_hook(__FILE__, 'codguard_deactivate');
 
 /**
- * Load plugin text domain for translations
+ * Note: As of WordPress 4.6, translations are automatically loaded from wp-content/languages/plugins/
+ * No need for load_plugin_textdomain() - WordPress handles this automatically using the Text Domain header
+ *
+ * See: https://make.wordpress.org/core/2016/07/06/i18n-improvements-in-4-6/
  */
-function codguard_load_textdomain() {
-    load_plugin_textdomain('codguard-woocommerce', false, dirname(CODGUARD_PLUGIN_BASENAME) . '/languages');
-}
-add_action('init', 'codguard_load_textdomain');
 
 /**
  * Declare HPOS (High-Performance Order Storage) compatibility

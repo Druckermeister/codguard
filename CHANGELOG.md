@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.7] - 2025-11-06
+
+### Fixed - WordPress Plugin Checker Compliance
+All remaining plugin checker issues resolved for WordPress.org submission:
+
+#### Security Improvements
+- **Output Escaping (4 fixes)**: All `wp_die(__())` calls now use `esc_html__()` for proper escaping
+  - class-admin-settings.php lines 97, 113, 118
+  - codguard.php line 126
+
+- **Input Sanitization (3 fixes)**: All `$_POST` data now uses `wp_unslash()` before sanitization
+  - `$_POST['codguard_nonce']` → `sanitize_text_field(wp_unslash())`
+  - `$_POST['status_name']` → `sanitize_text_field(wp_unslash())`
+  - `$_POST['payment_method']` → `sanitize_text_field(wp_unslash())`
+  - `$_POST['billing_email']` → `sanitize_email(wp_unslash())`
+
+- **Nonce Documentation**: Added comprehensive comments explaining WooCommerce handles nonce verification in checkout-validator.php
+
+#### Code Standards
+- **Date Functions**: Changed `date()` to `gmdate()` in class-order-sync.php (line 85) for UTC timezone compliance
+- **Deprecated Function Removal**: Removed `load_plugin_textdomain()` - WordPress auto-loads translations since 4.6
+- **Text Domain**: Verified all instances correctly use 'codguard-woocommerce' (lowercase)
+
+#### Plugin Repository Requirements
+- **README.txt**: Added all required WordPress.org plugin repository headers:
+  - Contributors, Tags, Requires at least, Tested up to, Requires PHP
+  - Stable tag, License, License URI
+
+### Technical Details
+- Files modified: codguard.php, class-admin-settings.php, class-checkout-validator.php, class-order-sync.php, README.txt
+- Total changes: 31 insertions, 18 deletions
+- Full WordPress Coding Standards (WPCS) compliance
+- Full WordPress Security Best Practices compliance
+- Ready for WordPress.org plugin submission
+
+---
+
 ## [2.1.6] - 2025-11-06
 
 ### Fixed

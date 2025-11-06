@@ -94,7 +94,7 @@ class CodGuard_Admin_Settings {
     public static function render_settings_page() {
         // Check user capabilities
         if (!current_user_can('manage_woocommerce')) {
-            wp_die(__('You do not have sufficient permissions to access this page.', 'codguard-woocommerce'));
+            wp_die(esc_html__('You do not have sufficient permissions to access this page.', 'codguard-woocommerce'));
         }
 
         // Get current settings
@@ -109,13 +109,13 @@ class CodGuard_Admin_Settings {
      */
     public static function save_settings() {
         // Verify nonce
-        if (!isset($_POST['codguard_nonce']) || !wp_verify_nonce($_POST['codguard_nonce'], 'codguard_settings_save')) {
-            wp_die(__('Security check failed.', 'codguard-woocommerce'));
+        if (!isset($_POST['codguard_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['codguard_nonce'])), 'codguard_settings_save')) {
+            wp_die(esc_html__('Security check failed.', 'codguard-woocommerce'));
         }
 
         // Check permissions
         if (!current_user_can('manage_woocommerce')) {
-            wp_die(__('You do not have sufficient permissions to perform this action.', 'codguard-woocommerce'));
+            wp_die(esc_html__('You do not have sufficient permissions to perform this action.', 'codguard-woocommerce'));
         }
 
         // Sanitize settings
@@ -217,7 +217,7 @@ class CodGuard_Admin_Settings {
         }
 
         // Get and validate status name
-        $status_name = isset($_POST['status_name']) ? sanitize_text_field($_POST['status_name']) : '';
+        $status_name = isset($_POST['status_name']) ? sanitize_text_field(wp_unslash($_POST['status_name'])) : '';
 
         if (empty($status_name)) {
             wp_send_json_error(array(

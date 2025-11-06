@@ -82,7 +82,7 @@ class CodGuard_Order_Sync {
         $scheduled = wp_schedule_event($next_run, 'codguard_daily', self::CRON_HOOK);
 
         if ($scheduled !== false) {
-            codguard_log('Order sync scheduled for: ' . date('Y-m-d H:i:s', $next_run), 'info');
+            codguard_log('Order sync scheduled for: ' . gmdate('Y-m-d H:i:s', $next_run), 'info');
             update_option('codguard_last_schedule_time', $next_run);
         } else {
             codguard_log('Failed to schedule order sync', 'error');
