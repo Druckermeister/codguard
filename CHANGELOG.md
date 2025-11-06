@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.3] - 2025-11-06
+
+### Changed
+- Updated text domain from 'codguard' to 'CodGuard-Woocommerce' across all files
+- Improved compatibility with WordPress plugin standards
+- Updated for WordPress plugin checker requirements
+
+### Technical Details
+- Modified text domain in main plugin file header
+- Updated all translation function calls (__(), _e(), _n_noop(), printf()) to use new text domain
+- Affects files: codguard.php, class-admin-settings.php, settings-page.php, settings-page-sync-section.php, class-order-sync.php, class-settings-manager.php
+
+---
+
 ## [2.1.2] - 2025-11-04
 
 ### Added
@@ -184,5 +198,5 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-**Maintained by:** CodGuard Development Team  
-**Last Updated:** November 3, 2025
+**Maintained by:** CodGuard Development Team
+**Last Updated:** November 6, 2025

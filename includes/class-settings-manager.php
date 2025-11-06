@@ -30,7 +30,7 @@ class CodGuard_Settings_Manager {
             'refused_status' => 'cancelled',
             'cod_methods' => array(),
             'rating_tolerance' => 35,
-            'rejection_message' => __('Unfortunately, we cannot offer Cash on Delivery for this order.', 'codguard'),
+            'rejection_message' => __('Unfortunately, we cannot offer Cash on Delivery for this order.', 'CodGuard-Woocommerce'),
             'notification_email' => 'info@codguard.com',
             'enabled' => false
         );
@@ -158,40 +158,40 @@ class CodGuard_Settings_Manager {
 
         // Shop ID validation
         if (empty($settings['shop_id'])) {
-            $errors[] = __('Shop ID is required.', 'codguard');
+            $errors[] = __('Shop ID is required.', 'CodGuard-Woocommerce');
         }
 
         // Public Key validation
         if (empty($settings['public_key'])) {
-            $errors[] = __('Public Key is required.', 'codguard');
+            $errors[] = __('Public Key is required.', 'CodGuard-Woocommerce');
         } elseif (strlen($settings['public_key']) < 10) {
-            $errors[] = __('Public Key must be at least 10 characters long.', 'codguard');
+            $errors[] = __('Public Key must be at least 10 characters long.', 'CodGuard-Woocommerce');
         }
 
         // Private Key validation
         if (empty($settings['private_key'])) {
-            $errors[] = __('Private Key is required.', 'codguard');
+            $errors[] = __('Private Key is required.', 'CodGuard-Woocommerce');
         } elseif (strlen($settings['private_key']) < 10) {
-            $errors[] = __('Private Key must be at least 10 characters long.', 'codguard');
+            $errors[] = __('Private Key must be at least 10 characters long.', 'CodGuard-Woocommerce');
         }
 
         // Rating tolerance validation
         if (!is_numeric($settings['rating_tolerance']) || 
             $settings['rating_tolerance'] < 0 || 
             $settings['rating_tolerance'] > 100) {
-            $errors[] = __('Rating Tolerance must be a number between 0 and 100.', 'codguard');
+            $errors[] = __('Rating Tolerance must be a number between 0 and 100.', 'CodGuard-Woocommerce');
         }
 
         // Rejection message validation
         if (empty($settings['rejection_message'])) {
-            $errors[] = __('Rejection Message is required.', 'codguard');
+            $errors[] = __('Rejection Message is required.', 'CodGuard-Woocommerce');
         } elseif (strlen($settings['rejection_message']) > 500) {
-            $errors[] = __('Rejection Message must not exceed 500 characters.', 'codguard');
+            $errors[] = __('Rejection Message must not exceed 500 characters.', 'CodGuard-Woocommerce');
         }
 
         // Notification email validation
         if (!empty($settings['notification_email']) && !is_email($settings['notification_email'])) {
-            $errors[] = __('Notification Email must be a valid email address.', 'codguard');
+            $errors[] = __('Notification Email must be a valid email address.', 'CodGuard-Woocommerce');
         }
 
         return $errors;

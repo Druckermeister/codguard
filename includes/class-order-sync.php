@@ -57,7 +57,7 @@ class CodGuard_Order_Sync {
     public function add_cron_schedule($schedules) {
         $schedules['codguard_daily'] = array(
             'interval' => DAY_IN_SECONDS,
-            'display'  => __('Once Daily (CodGuard)', 'codguard')
+            'display'  => __('Once Daily (CodGuard)', 'CodGuard-Woocommerce')
         );
         return $schedules;
     }
@@ -370,14 +370,14 @@ class CodGuard_Order_Sync {
         // Verify nonce
         if (!check_ajax_referer('codguard_admin', 'nonce', false)) {
             wp_send_json_error(array(
-                'message' => __('Security check failed.', 'codguard')
+                'message' => __('Security check failed.', 'CodGuard-Woocommerce')
             ));
         }
 
         // Check permissions
         if (!current_user_can('manage_woocommerce')) {
             wp_send_json_error(array(
-                'message' => __('You do not have sufficient permissions.', 'codguard')
+                'message' => __('You do not have sufficient permissions.', 'CodGuard-Woocommerce')
             ));
         }
 
@@ -386,7 +386,7 @@ class CodGuard_Order_Sync {
         
         if (empty($orders)) {
             wp_send_json_success(array(
-                'message' => __('No orders found for yesterday.', 'codguard'),
+                'message' => __('No orders found for yesterday.', 'CodGuard-Woocommerce'),
                 'count' => 0
             ));
             return;
@@ -397,7 +397,7 @@ class CodGuard_Order_Sync {
         
         if (empty($order_data)) {
             wp_send_json_success(array(
-                'message' => __('No valid orders found for yesterday (missing email addresses).', 'codguard'),
+                'message' => __('No valid orders found for yesterday (missing email addresses).', 'CodGuard-Woocommerce'),
                 'count' => 0
             ));
             return;
@@ -423,7 +423,7 @@ class CodGuard_Order_Sync {
         delete_option('codguard_last_sync_error');
 
         wp_send_json_success(array(
-            'message' => sprintf(__('%d orders synced successfully. Refused status = -1, others = 1.', 'codguard'), count($order_data)),
+            'message' => sprintf(__('%d orders synced successfully. Refused status = -1, others = 1.', 'CodGuard-Woocommerce'), count($order_data)),
             'count' => count($order_data)
         ));
     }
