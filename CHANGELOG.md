@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.8] - 2025-11-06
+
+### Changed
+- **Repository Rename**: Repository and folder name changed to all lowercase
+  - Old: `CodGuard-Woocommerce` → New: `codguard-woocommerce`
+  - Ensures text domain matches plugin slug exactly
+  - Resolves "Mismatched text domain" warning
+
+### Technical Details
+- Repository URL: https://github.com/Druckermeister/codguard-woocommerce
+- Text domain: `codguard-woocommerce` (matches folder name)
+- No code changes - documentation release only
+
+---
+
 ## [2.1.7] - 2025-11-06
 
 ### Fixed - WordPress Plugin Checker Compliance
