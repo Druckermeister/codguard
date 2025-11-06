@@ -256,6 +256,7 @@ class CodGuard_Admin_Settings {
             codguard_log(sprintf('Custom order status created: %s (%s)', $status_name, $status_slug_clean));
 
             wp_send_json_success(array(
+                /* translators: %s: name of the order status */
                 'message' => sprintf(__('Order status "%s" created successfully!', 'CodGuard-Woocommerce'), $status_name),
                 'slug' => $status_slug_clean,
                 'label' => $status_name

@@ -58,8 +58,9 @@
                     </span>
                     <br>
                     <span class="codguard-sync-badge <?php echo $last_sync_status === 'success' ? 'success' : 'error'; ?>">
-                        <?php 
+                        <?php
                         if ($last_sync_status === 'success') {
+                            /* translators: %d: number of orders synced */
                             printf(__('%d orders synced', 'CodGuard-Woocommerce'), $last_sync_count);
                         } else {
                             _e('Failed', 'CodGuard-Woocommerce');
@@ -81,7 +82,9 @@
         <span class="dashicons dashicons-clock"></span>
         <div class="info-text">
             <strong><?php _e('Automatic Sync Scheduled', 'CodGuard-Woocommerce'); ?></strong>
-            <p><?php printf(__('Orders from yesterday will be automatically uploaded to CodGuard at %s.', 'CodGuard-Woocommerce'), '<strong>' . esc_html($next_sync) . '</strong>'); ?></p>
+            <p><?php
+            /* translators: %s: next sync time */
+            printf(__('Orders from yesterday will be automatically uploaded to CodGuard at %s.', 'CodGuard-Woocommerce'), '<strong>' . esc_html($next_sync) . '</strong>'); ?></p>
         </div>
     </div>
     <?php endif; ?>
@@ -141,8 +144,12 @@
             <li><?php _e('Orders are automatically synced every day at 02:00 (site local time)', 'CodGuard-Woocommerce'); ?></li>
             <li><?php _e('Only COD (Cash on Delivery) orders are synced', 'CodGuard-Woocommerce'); ?></li>
             <li><?php _e('Order status is mapped to outcomes based on your configuration above', 'CodGuard-Woocommerce'); ?></li>
-            <li><?php printf(__('Successful orders (status: %s) are reported as outcome: 1', 'CodGuard-Woocommerce'), '<code>' . esc_html($settings['good_status']) . '</code>'); ?></li>
-            <li><?php printf(__('Refused orders (status: %s) are reported as outcome: -1', 'CodGuard-Woocommerce'), '<code>' . esc_html($settings['refused_status']) . '</code>'); ?></li>
+            <li><?php
+            /* translators: %s: successful order status name */
+            printf(__('Successful orders (status: %s) are reported as outcome: 1', 'CodGuard-Woocommerce'), '<code>' . esc_html($settings['good_status']) . '</code>'); ?></li>
+            <li><?php
+            /* translators: %s: refused order status name */
+            printf(__('Refused orders (status: %s) are reported as outcome: -1', 'CodGuard-Woocommerce'), '<code>' . esc_html($settings['refused_status']) . '</code>'); ?></li>
             <li><?php _e('You can trigger a manual sync anytime using the "Sync Now" button', 'CodGuard-Woocommerce'); ?></li>
             <li><?php _e('View detailed logs in WooCommerce → Status → Logs → select "codguard"', 'CodGuard-Woocommerce'); ?></li>
         </ul>

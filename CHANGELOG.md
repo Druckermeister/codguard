@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.4] - 2025-11-06
+
+### Fixed
+- Added "translators:" comments to all translation functions with placeholders
+- Improved translation documentation for better internationalization support
+
+### Technical Details
+- Added translator comments above all sprintf(__()) and printf(__()) calls
+- Clarifies placeholder meanings for translators (%s, %d)
+- Affects files: class-order-sync.php, class-admin-settings.php, settings-page.php, settings-page-sync-section.php
+
+---
+
 ## [2.1.3] - 2025-11-06
 
 ### Changed

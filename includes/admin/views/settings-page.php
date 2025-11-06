@@ -370,8 +370,9 @@ $is_enabled = CodGuard_Settings_Manager::is_enabled();
                         </span>
                         <br>
                         <span class="codguard-sync-badge <?php echo $last_sync_status === 'success' ? 'success' : 'error'; ?>">
-                            <?php 
+                            <?php
                             if ($last_sync_status === 'success') {
+                                /* translators: %d: number of orders synced */
                                 printf(__('%d orders synced', 'CodGuard-Woocommerce'), $last_sync_count);
                             } else {
                                 _e('Failed', 'CodGuard-Woocommerce');

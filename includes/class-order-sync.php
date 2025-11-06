@@ -423,6 +423,7 @@ class CodGuard_Order_Sync {
         delete_option('codguard_last_sync_error');
 
         wp_send_json_success(array(
+            /* translators: %d: number of orders synced */
             'message' => sprintf(__('%d orders synced successfully. Refused status = -1, others = 1.', 'CodGuard-Woocommerce'), count($order_data)),
             'count' => count($order_data)
         ));
