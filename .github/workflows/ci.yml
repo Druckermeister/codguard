@@ -1,42 +1,6 @@
 name: Quality Checks
 
 on:
-  pull_request:
-  push:
-    branches:
-      - main
-      - webotvurci
-
-jobs:
-  static-analysis:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-          tools: composer
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction
-
-      - name: Run PHPStan
-        run: vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --memory-limit=1G
-
-      - name: Run PHPCS
-        run: |
-          vendor/bin/phpcs \
-            --standard=WordPress \
-            --ignore=vendor,var \
-            --extensions=php \
-            codguard.php includes
-name: Quality Checks
-
-on:
   push:
     branches:
       - main
@@ -66,5 +30,5 @@ jobs:
 
       - name: Run PHPCS
         continue-on-error: true
-        run: php vendor/bin/phpcs --standard=WordPress --ignore=vendor,var codguard.php includes
+        run: vendor/bin/phpcs --standard=WordPress --ignore=vendor,var --extensions=php codguard.php includes
 

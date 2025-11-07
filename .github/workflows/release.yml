@@ -112,6 +112,7 @@ jobs:
           wp config create --path=/tmp/wp --dbname=$WP_DB_NAME --dbuser=$WP_DB_USER --dbpass=$WP_DB_PASSWORD --dbhost=$WP_DB_HOST --skip-check
           wp db reset --path=/tmp/wp --yes || wp db create --path=/tmp/wp
           wp core install --path=/tmp/wp --url="http://localhost" --title="CodGuard Test" --admin_user=admin --admin_password=admin --admin_email=admin@example.com
+          wp plugin install woocommerce --path=/tmp/wp --activate --force
           wp plugin install build/codguard.zip --path=/tmp/wp --force
           wp plugin activate codguard --path=/tmp/wp
           wp plugin status codguard --path=/tmp/wp

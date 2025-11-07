@@ -19,7 +19,7 @@ The action defined in `.github/workflows/release.yml` triggers on tags starting 
 4. Create `build/codguard.zip` containing the plugin directory.
 5. Verify the archive contents (presence of `codguard.php`, `vendor/autoload.php`, `assets/`, etc.).
 6. Upload the archive as both a workflow artifact (`codguard-plugin`) and, for tags, as an asset to the GitHub release that is automatically created for the tag.
-7. Install the generated ZIP into a disposable WordPress instance (MySQL + WP-CLI) and activate it as a smoke test.
+7. Install WooCommerce and the generated ZIP into a disposable WordPress instance (MySQL + WP-CLI) and activate both as a smoke test.
 
 End users can download `codguard.zip`, unzip it, and install the plugin by uploading the `codguard/` directory to `wp-content/plugins/` or by using the WordPress admin plugin uploader.
 
@@ -81,6 +81,7 @@ wp core download --path=/tmp/wp --skip-content
 wp config create --path=/tmp/wp --dbname=wordpress --dbuser=wordpress --dbpass=wordpress --dbhost=127.0.0.1:3306 --skip-check
 wp db create --path=/tmp/wp
 wp core install --path=/tmp/wp --url="http://localhost" --title="CodGuard Test" --admin_user=admin --admin_password=admin --admin_email=admin@example.com
+wp plugin install woocommerce --path=/tmp/wp --activate --force
 wp plugin install build/codguard.zip --path=/tmp/wp --force
 wp plugin activate codguard --path=/tmp/wp
 docker stop codguard-mysql && docker rm codguard-mysql
