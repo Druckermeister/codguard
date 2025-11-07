@@ -1,0 +1,14 @@
+parameters:
+    level: 5
+    paths:
+        - includes
+    tmpDir: var/phpstan
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: true
+    bootstrapFiles:
+        - vendor/autoload.php
+        - phpstan-bootstrap.php
+    scanFiles:
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+

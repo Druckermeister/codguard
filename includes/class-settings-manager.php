@@ -5,233 +5,233 @@
  */
 
 // Exit if accessed directly
-if (!defined('ABSPATH')) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 class CodGuard_Settings_Manager {
 
-    /**
-     * Option name in wp_options table
-     */
-    const OPTION_NAME = 'codguard_settings';
+	/**
+	 * Option name in wp_options table
+	 */
+	const OPTION_NAME = 'codguard_settings';
 
-    /**
-     * Get default settings
-     *
-     * @return array Default settings array
-     */
-    public static function get_default_settings() {
-        return array(
-            'shop_id' => '',
-            'public_key' => '',
-            'private_key' => '',
-            'good_status' => 'completed',
-            'refused_status' => 'cancelled',
-            'cod_methods' => array(),
-            'rating_tolerance' => 35,
-            'rejection_message' => __('Unfortunately, we cannot offer Cash on Delivery for this order.', 'codguard'),
-            'notification_email' => 'info@codguard.com',
-            'enabled' => false
-        );
-    }
+	/**
+	 * Get default settings
+	 *
+	 * @return array Default settings array
+	 */
+	public static function get_default_settings() {
+		return array(
+			'shop_id'            => '',
+			'public_key'         => '',
+			'private_key'        => '',
+			'good_status'        => 'completed',
+			'refused_status'     => 'cancelled',
+			'cod_methods'        => array(),
+			'rating_tolerance'   => 35,
+			'rejection_message'  => __( 'Unfortunately, we cannot offer Cash on Delivery for this order.', 'codguard' ),
+			'notification_email' => 'info@codguard.com',
+			'enabled'            => false,
+		);
+	}
 
-    /**
-     * Get all settings
-     *
-     * @return array Settings array with defaults merged
-     */
-    public static function get_settings() {
-        $defaults = self::get_default_settings();
-        $settings = get_option(self::OPTION_NAME, $defaults);
-        
-        // Ensure all default keys exist
-        return wp_parse_args($settings, $defaults);
-    }
+	/**
+	 * Get all settings
+	 *
+	 * @return array Settings array with defaults merged
+	 */
+	public static function get_settings() {
+		$defaults = self::get_default_settings();
+		$settings = get_option( self::OPTION_NAME, $defaults );
 
-    /**
-     * Update settings
-     *
-     * @param array $new_settings New settings to save
-     * @return bool True on success, false on failure
-     */
-    public static function update_settings($new_settings) {
-        $current = self::get_settings();
-        $updated = array_merge($current, $new_settings);
-        
-        // Auto-enable if all required API credentials are provided
-        if (!empty($updated['shop_id']) && 
-            !empty($updated['public_key']) && 
-            !empty($updated['private_key'])) {
-            $updated['enabled'] = true;
-        } else {
-            $updated['enabled'] = false;
-        }
-        
-        return update_option(self::OPTION_NAME, $updated);
-    }
+		// Ensure all default keys exist
+		return wp_parse_args( $settings, $defaults );
+	}
 
-    /**
-     * Get shop ID
-     *
-     * @return string Shop ID
-     */
-    public static function get_shop_id() {
-        $settings = self::get_settings();
-        return $settings['shop_id'];
-    }
+	/**
+	 * Update settings
+	 *
+	 * @param array $new_settings New settings to save
+	 * @return bool True on success, false on failure
+	 */
+	public static function update_settings( $new_settings ) {
+		$current = self::get_settings();
+		$updated = array_merge( $current, $new_settings );
 
-    /**
-     * Get API keys
-     *
-     * @return array Array with 'public' and 'private' keys
-     */
-    public static function get_api_keys() {
-        $settings = self::get_settings();
-        return array(
-            'public' => $settings['public_key'],
-            'private' => $settings['private_key']
-        );
-    }
+		// Auto-enable if all required API credentials are provided
+		if ( ! empty( $updated['shop_id'] ) &&
+			! empty( $updated['public_key'] ) &&
+			! empty( $updated['private_key'] ) ) {
+			$updated['enabled'] = true;
+		} else {
+			$updated['enabled'] = false;
+		}
 
-    /**
-     * Get rating tolerance
-     *
-     * @return int Rating tolerance (0-100)
-     */
-    public static function get_tolerance() {
-        $settings = self::get_settings();
-        return (int) $settings['rating_tolerance'];
-    }
+		return update_option( self::OPTION_NAME, $updated );
+	}
 
-    /**
-     * Get COD payment methods
-     *
-     * @return array Array of payment gateway IDs
-     */
-    public static function get_cod_methods() {
-        $settings = self::get_settings();
-        return is_array($settings['cod_methods']) ? $settings['cod_methods'] : array();
-    }
+	/**
+	 * Get shop ID
+	 *
+	 * @return string Shop ID
+	 */
+	public static function get_shop_id() {
+		$settings = self::get_settings();
+		return $settings['shop_id'];
+	}
 
-    /**
-     * Get order status mappings
-     *
-     * @return array Array with 'good' and 'refused' status slugs
-     */
-    public static function get_status_mappings() {
-        $settings = self::get_settings();
-        return array(
-            'good' => $settings['good_status'],
-            'refused' => $settings['refused_status']
-        );
-    }
+	/**
+	 * Get API keys
+	 *
+	 * @return array Array with 'public' and 'private' keys
+	 */
+	public static function get_api_keys() {
+		$settings = self::get_settings();
+		return array(
+			'public'  => $settings['public_key'],
+			'private' => $settings['private_key'],
+		);
+	}
 
-    /**
-     * Get rejection message
-     *
-     * @return string Rejection message
-     */
-    public static function get_rejection_message() {
-        $settings = self::get_settings();
-        return $settings['rejection_message'];
-    }
+	/**
+	 * Get rating tolerance
+	 *
+	 * @return int Rating tolerance (0-100)
+	 */
+	public static function get_tolerance() {
+		$settings = self::get_settings();
+		return (int) $settings['rating_tolerance'];
+	}
 
-    /**
-     * Check if plugin is enabled
-     *
-     * @return bool True if enabled, false otherwise
-     */
-    public static function is_enabled() {
-        $settings = self::get_settings();
-        return (bool) $settings['enabled'];
-    }
+	/**
+	 * Get COD payment methods
+	 *
+	 * @return array Array of payment gateway IDs
+	 */
+	public static function get_cod_methods() {
+		$settings = self::get_settings();
+		return is_array( $settings['cod_methods'] ) ? $settings['cod_methods'] : array();
+	}
 
-    /**
-     * Validate settings before saving
-     *
-     * @param array $settings Settings to validate
-     * @return array Array of error messages (empty if valid)
-     */
-    public static function validate_settings($settings) {
-        $errors = array();
+	/**
+	 * Get order status mappings
+	 *
+	 * @return array Array with 'good' and 'refused' status slugs
+	 */
+	public static function get_status_mappings() {
+		$settings = self::get_settings();
+		return array(
+			'good'    => $settings['good_status'],
+			'refused' => $settings['refused_status'],
+		);
+	}
 
-        // Shop ID validation
-        if (empty($settings['shop_id'])) {
-            $errors[] = __('Shop ID is required.', 'codguard');
-        }
+	/**
+	 * Get rejection message
+	 *
+	 * @return string Rejection message
+	 */
+	public static function get_rejection_message() {
+		$settings = self::get_settings();
+		return $settings['rejection_message'];
+	}
 
-        // Public Key validation
-        if (empty($settings['public_key'])) {
-            $errors[] = __('Public Key is required.', 'codguard');
-        } elseif (strlen($settings['public_key']) < 10) {
-            $errors[] = __('Public Key must be at least 10 characters long.', 'codguard');
-        }
+	/**
+	 * Check if plugin is enabled
+	 *
+	 * @return bool True if enabled, false otherwise
+	 */
+	public static function is_enabled() {
+		$settings = self::get_settings();
+		return (bool) $settings['enabled'];
+	}
 
-        // Private Key validation
-        if (empty($settings['private_key'])) {
-            $errors[] = __('Private Key is required.', 'codguard');
-        } elseif (strlen($settings['private_key']) < 10) {
-            $errors[] = __('Private Key must be at least 10 characters long.', 'codguard');
-        }
+	/**
+	 * Validate settings before saving
+	 *
+	 * @param array $settings Settings to validate
+	 * @return array Array of error messages (empty if valid)
+	 */
+	public static function validate_settings( $settings ) {
+		$errors = array();
 
-        // Rating tolerance validation
-        if (!is_numeric($settings['rating_tolerance']) || 
-            $settings['rating_tolerance'] < 0 || 
-            $settings['rating_tolerance'] > 100) {
-            $errors[] = __('Rating Tolerance must be a number between 0 and 100.', 'codguard');
-        }
+		// Shop ID validation
+		if ( empty( $settings['shop_id'] ) ) {
+			$errors[] = __( 'Shop ID is required.', 'codguard' );
+		}
 
-        // Rejection message validation
-        if (empty($settings['rejection_message'])) {
-            $errors[] = __('Rejection Message is required.', 'codguard');
-        } elseif (strlen($settings['rejection_message']) > 500) {
-            $errors[] = __('Rejection Message must not exceed 500 characters.', 'codguard');
-        }
+		// Public Key validation
+		if ( empty( $settings['public_key'] ) ) {
+			$errors[] = __( 'Public Key is required.', 'codguard' );
+		} elseif ( strlen( $settings['public_key'] ) < 10 ) {
+			$errors[] = __( 'Public Key must be at least 10 characters long.', 'codguard' );
+		}
 
-        // Notification email validation
-        if (!empty($settings['notification_email']) && !is_email($settings['notification_email'])) {
-            $errors[] = __('Notification Email must be a valid email address.', 'codguard');
-        }
+		// Private Key validation
+		if ( empty( $settings['private_key'] ) ) {
+			$errors[] = __( 'Private Key is required.', 'codguard' );
+		} elseif ( strlen( $settings['private_key'] ) < 10 ) {
+			$errors[] = __( 'Private Key must be at least 10 characters long.', 'codguard' );
+		}
 
-        return $errors;
-    }
+		// Rating tolerance validation
+		if ( ! is_numeric( $settings['rating_tolerance'] ) ||
+			$settings['rating_tolerance'] < 0 ||
+			$settings['rating_tolerance'] > 100 ) {
+			$errors[] = __( 'Rating Tolerance must be a number between 0 and 100.', 'codguard' );
+		}
 
-    /**
-     * Sanitize settings
-     *
-     * @param array $raw_settings      Raw settings from form (typically $_POST)
-     * @param array $existing_settings Currently stored settings, used for fallbacks.
-     * @return array Sanitized settings
-     */
-    public static function sanitize_settings($raw_settings, $existing_settings = array()) {
-        $defaults = self::get_default_settings();
-        $existing_settings = wp_parse_args((array) $existing_settings, $defaults);
+		// Rejection message validation
+		if ( empty( $settings['rejection_message'] ) ) {
+			$errors[] = __( 'Rejection Message is required.', 'codguard' );
+		} elseif ( strlen( $settings['rejection_message'] ) > 500 ) {
+			$errors[] = __( 'Rejection Message must not exceed 500 characters.', 'codguard' );
+		}
 
-        $raw_settings = is_array($raw_settings) ? wp_unslash($raw_settings) : array();
-        $parsed_settings = wp_parse_args($raw_settings, $defaults);
+		// Notification email validation
+		if ( ! empty( $settings['notification_email'] ) && ! is_email( $settings['notification_email'] ) ) {
+			$errors[] = __( 'Notification Email must be a valid email address.', 'codguard' );
+		}
 
-        $cod_methods = array();
-        if (isset($parsed_settings['cod_methods']) && is_array($parsed_settings['cod_methods'])) {
-            $cod_methods = array_filter(array_map('sanitize_text_field', $parsed_settings['cod_methods']));
-            $cod_methods = array_values(array_unique($cod_methods));
-        }
+		return $errors;
+	}
 
-        $private_key = sanitize_text_field($parsed_settings['private_key']);
-        if ('' === $private_key) {
-            $private_key = $existing_settings['private_key'];
-        }
+	/**
+	 * Sanitize settings
+	 *
+	 * @param array $raw_settings      Raw settings from form (typically $_POST)
+	 * @param array $existing_settings Currently stored settings, used for fallbacks.
+	 * @return array Sanitized settings
+	 */
+	public static function sanitize_settings( $raw_settings, $existing_settings = array() ) {
+		$defaults          = self::get_default_settings();
+		$existing_settings = wp_parse_args( (array) $existing_settings, $defaults );
 
-        return array(
-            'shop_id' => sanitize_text_field($parsed_settings['shop_id']),
-            'public_key' => sanitize_text_field($parsed_settings['public_key']),
-            'private_key' => $private_key,
-            'good_status' => sanitize_text_field($parsed_settings['good_status']),
-            'refused_status' => sanitize_text_field($parsed_settings['refused_status']),
-            'cod_methods' => $cod_methods,
-            'rating_tolerance' => max(0, min(100, (int) $parsed_settings['rating_tolerance'])),
-            'rejection_message' => sanitize_textarea_field($parsed_settings['rejection_message']),
-            'notification_email' => sanitize_email($parsed_settings['notification_email'])
-        );
-    }
+		$raw_settings    = is_array( $raw_settings ) ? wp_unslash( $raw_settings ) : array();
+		$parsed_settings = wp_parse_args( $raw_settings, $defaults );
+
+		$cod_methods = array();
+		if ( isset( $parsed_settings['cod_methods'] ) && is_array( $parsed_settings['cod_methods'] ) ) {
+			$cod_methods = array_filter( array_map( 'sanitize_text_field', $parsed_settings['cod_methods'] ) );
+			$cod_methods = array_values( array_unique( $cod_methods ) );
+		}
+
+		$private_key = sanitize_text_field( $parsed_settings['private_key'] );
+		if ( '' === $private_key ) {
+			$private_key = $existing_settings['private_key'];
+		}
+
+		return array(
+			'shop_id'            => sanitize_text_field( $parsed_settings['shop_id'] ),
+			'public_key'         => sanitize_text_field( $parsed_settings['public_key'] ),
+			'private_key'        => $private_key,
+			'good_status'        => sanitize_text_field( $parsed_settings['good_status'] ),
+			'refused_status'     => sanitize_text_field( $parsed_settings['refused_status'] ),
+			'cod_methods'        => $cod_methods,
+			'rating_tolerance'   => max( 0, min( 100, (int) $parsed_settings['rating_tolerance'] ) ),
+			'rejection_message'  => sanitize_textarea_field( $parsed_settings['rejection_message'] ),
+			'notification_email' => sanitize_email( $parsed_settings['notification_email'] ),
+		);
+	}
 }
