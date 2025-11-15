@@ -1,0 +1,15 @@
+parameters:
+    level: 5
+    paths:
+        - codguard.php
+        - includes
+    excludePaths:
+        - includes/admin/views/*
+    bootstrapFiles:
+        - /tmp/wordpress-stubs.php
+        - /tmp/woocommerce-stubs.php
+    ignoreErrors:
+        - '#Call to an undefined method YahnisElsts\\PluginUpdateChecker\\v5p6\\Vcs\\Api::enableReleaseAssets#'
+        - '#Constant CODGUARD_PLUGIN_URL not found#'
+        - '#Constant CODGUARD_PLUGIN_DIR not found#'
+        - '#Constant DAY_IN_SECONDS not found#'

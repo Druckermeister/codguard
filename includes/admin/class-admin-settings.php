@@ -140,13 +140,7 @@ class CodGuard_Admin_Settings {
             
             // Log the save action
             codguard_log('Settings saved successfully.');
-            
-            // Phase 3: Reschedule sync if plugin is now enabled
-            if (codguard_is_enabled() && class_exists('CodGuard_Order_Sync')) {
-                $order_sync = new CodGuard_Order_Sync();
-                $order_sync->schedule_sync();
-            }
-            
+
             wp_redirect(admin_url('admin.php?page=codguard-settings&saved=1'));
         } else {
             // Error saving

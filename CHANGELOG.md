@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.1] - 2025-11-15
+
+### Fixed
+- **Code Quality Improvements**:
+  - Removed non-existent `schedule_sync()` method call in admin settings
+  - Removed unused `$rating_result` static property in checkout validator
+  - Fixed WooCommerce payment gateways access pattern for better type safety
+  - All PHPStan level 5 checks now pass with no errors
+
+### Technical Details
+- Added PHPStan static analysis configuration
+- Improved code quality and type safety
+- No functional changes - all fixes are code quality improvements
+
+---
+
 ## [2.1.10] - 2025-11-06
 
 ### Changed

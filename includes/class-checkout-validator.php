@@ -12,10 +12,9 @@ if (!defined('ABSPATH')) {
 }
 
 class CodGuard_Checkout_Validator {
-    
+
     private static $rating_checked = false;
-    private static $rating_result = null;
-    
+
     public function __construct() {
         // Check rating before checkout processes
         add_action('woocommerce_after_checkout_validation', array($this, 'validate_cod_payment'), 10, 2);
@@ -69,11 +68,10 @@ class CodGuard_Checkout_Validator {
         
         // Check rating
         $rating = $this->get_customer_rating($email);
-        
+
         // Mark as checked
         self::$rating_checked = true;
-        self::$rating_result = $rating;
-        
+
         // If API failed, allow (fail-open)
         if ($rating === null) {
             return;

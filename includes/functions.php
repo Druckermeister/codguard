@@ -123,15 +123,16 @@ function codguard_get_order_statuses() {
  */
 function codguard_get_payment_gateways() {
     $gateways = array();
-    
-    if (function_exists('WC') && WC()->payment_gateways()) {
-        $available_gateways = WC()->payment_gateways->get_available_payment_gateways();
-        
+
+    if (function_exists('WC')) {
+        $payment_gateways = WC()->payment_gateways();
+        $available_gateways = $payment_gateways->get_available_payment_gateways();
+
         foreach ($available_gateways as $gateway_id => $gateway) {
             $gateways[$gateway_id] = $gateway->get_title();
         }
     }
-    
+
     return $gateways;
 }
 
