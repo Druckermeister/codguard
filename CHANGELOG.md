@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.4] - 2025-11-15
+
+### Fixed
+- **Customer Rating API Authentication (REVERTED)**: Restored correct authentication method
+  - Customer rating endpoint uses `x-api-key` header with PUBLIC KEY ONLY
+  - Order sync endpoint uses `X-API-PUBLIC-KEY` and `X-API-PRIVATE-KEY` headers
+  - Different endpoints have different authentication requirements
+  - Reverted to v2.2.0 working authentication format + enhanced logging
+
+### Notes
+- This fixes the 403 "Something went wrong" error introduced in v2.2.2/v2.2.3
+- Customer rating checks should now work correctly as they did in v2.2.0
+- Enhanced logging from v2.2.2/v2.2.3 is retained for debugging
+
+---
+
 ## [2.2.3] - 2025-11-15
 
 ### Added

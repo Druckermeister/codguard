@@ -125,10 +125,11 @@ class CodGuard_Checkout_Validator {
         $url = 'https://api.codguard.com/api/customer-rating/' . urlencode($shop_id) . '/' . urlencode($email);
 
         // Build headers with API keys
+        // Note: Customer rating endpoint only requires public key (x-api-key header)
+        // This is different from order sync endpoint which requires both keys
         $headers = array(
-            'Accept'               => 'application/json',
-            'X-API-PUBLIC-KEY'    => $api_keys['public'],
-            'X-API-PRIVATE-KEY'   => $api_keys['private'],
+            'Accept'     => 'application/json',
+            'x-api-key'  => $api_keys['public'],
         );
 
         // Log the API call with headers (mask keys for security)
@@ -136,11 +137,9 @@ class CodGuard_Checkout_Validator {
             $logger = wc_get_logger();
             $logger->info('Calling CodGuard API: ' . $url, array('source' => 'codguard'));
             $logger->debug(sprintf(
-                'Request Headers - Public Key: %s... (%d chars), Private Key: %s... (%d chars)',
+                'Request Headers - x-api-key (Public Key): %s... (%d chars)',
                 substr($api_keys['public'], 0, 10),
-                strlen($api_keys['public']),
-                substr($api_keys['private'], 0, 10),
-                strlen($api_keys['private'])
+                strlen($api_keys['public'])
             ), array('source' => 'codguard'));
         }
 
