@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.2] - 2025-11-15
+
+### Fixed
+- **Customer Rating API Authentication**: Fixed 403 error when checking customer ratings
+  - Changed API headers from `x-api-key` to proper format
+  - Now uses both `X-API-PUBLIC-KEY` and `X-API-PRIVATE-KEY` headers
+  - Matches the authentication format used by order sync endpoint
+  - Resolves "Something went wrong" 403 errors
+
+### Added
+- **Enhanced Debugging**: Added comprehensive logging to checkout validator
+  - Logs when plugin is disabled
+  - Logs payment method detection
+  - Logs configured COD methods
+  - Logs email validation
+  - Logs API request/response
+  - Logs rating comparison and decision
+  - Helps diagnose why API requests may not be triggered
+
+### Notes
+- If API requests are not being made, check WooCommerce logs (WooCommerce > Status > Logs > codguard)
+- Most common issue: COD payment methods not configured in CodGuard settings
+- Check that your payment gateway ID is selected in Settings > Payment Method Selection
+
+---
+
 ## [2.2.1] - 2025-11-15
 
 ### Fixed

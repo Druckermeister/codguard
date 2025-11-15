@@ -40,11 +40,13 @@ class CodGuard_Checkout_Validator {
     public function check_cod_rating() {
         // Already checked in this request
         if (self::$rating_checked) {
+            codguard_log('Rating already checked in this request, skipping.', 'debug');
             return;
         }
 
         // Check if plugin enabled
         if (!codguard_is_enabled()) {
+            codguard_log('CodGuard plugin is not enabled, skipping checkout validation.', 'debug');
             return;
         }
 
@@ -52,20 +54,28 @@ class CodGuard_Checkout_Validator {
         // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified by WooCommerce
         $payment_method = isset($_POST['payment_method']) ? sanitize_text_field(wp_unslash($_POST['payment_method'])) : '';
 
+        codguard_log(sprintf('Checkout validation triggered. Payment method: %s', $payment_method), 'debug');
+
         // Check if it's a COD method
         $settings = codguard_get_settings();
+        codguard_log(sprintf('Configured COD methods: %s', implode(', ', $settings['cod_methods'])), 'debug');
+
         if (!in_array($payment_method, $settings['cod_methods'])) {
+            codguard_log(sprintf('Payment method "%s" is not in configured COD methods list, skipping validation.', $payment_method), 'debug');
             return; // Not COD, allow
         }
 
         // Get billing email
         // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified by WooCommerce
         $email = isset($_POST['billing_email']) ? sanitize_email(wp_unslash($_POST['billing_email'])) : '';
-        
+
         if (empty($email) || !is_email($email)) {
+            codguard_log('No valid billing email found, allowing checkout.', 'warning');
             return; // No valid email, allow
         }
-        
+
+        codguard_log(sprintf('Checking customer rating for email: %s', $email), 'info');
+
         // Check rating
         $rating = $this->get_customer_rating($email);
 
@@ -74,15 +84,23 @@ class CodGuard_Checkout_Validator {
 
         // If API failed, allow (fail-open)
         if ($rating === null) {
+            codguard_log('API request failed or returned null, allowing checkout (fail-open).', 'warning');
             return;
         }
-        
+
+        codguard_log(sprintf('Customer rating received: %.2f', $rating), 'info');
+
         // Compare to tolerance
         $tolerance = (float) $settings['rating_tolerance'] / 100;
-        
+
+        codguard_log(sprintf('Comparing rating %.2f against tolerance %.2f', $rating, $tolerance), 'debug');
+
         if ($rating < $tolerance) {
             // Block COD
+            codguard_log(sprintf('Rating %.2f is below tolerance %.2f - BLOCKING COD payment', $rating, $tolerance), 'warning');
             wc_add_notice($settings['rejection_message'], 'error');
+        } else {
+            codguard_log(sprintf('Rating %.2f meets tolerance %.2f - allowing COD payment', $rating, $tolerance), 'info');
         }
     }
     
@@ -107,10 +125,11 @@ class CodGuard_Checkout_Validator {
         
         // Build headers with API keys
         $headers = array(
-            'Accept' => 'application/json',
-            'x-api-key' => $api_keys['public']
+            'Accept'               => 'application/json',
+            'X-API-PUBLIC-KEY'    => $api_keys['public'],
+            'X-API-PRIVATE-KEY'   => $api_keys['private'],
         );
-        
+
         $response = wp_remote_get($url, array(
             'timeout' => 10,
             'headers' => $headers
