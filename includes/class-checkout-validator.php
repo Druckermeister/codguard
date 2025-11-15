@@ -115,20 +115,34 @@ class CodGuard_Checkout_Validator {
         }
         
         $api_keys = codguard_get_api_keys();
-        $url = 'https://api.codguard.com/api/customer-rating/' . urlencode($shop_id) . '/' . urlencode($email);
-        
-        // Log the API call
-        if (function_exists('wc_get_logger')) {
-            $logger = wc_get_logger();
-            $logger->info('Calling CodGuard API: ' . $url, array('source' => 'codguard'));
+
+        // Validate API keys exist
+        if (empty($api_keys['public']) || empty($api_keys['private'])) {
+            codguard_log('API keys are empty or not configured properly', 'error');
+            return null;
         }
-        
+
+        $url = 'https://api.codguard.com/api/customer-rating/' . urlencode($shop_id) . '/' . urlencode($email);
+
         // Build headers with API keys
         $headers = array(
             'Accept'               => 'application/json',
             'X-API-PUBLIC-KEY'    => $api_keys['public'],
             'X-API-PRIVATE-KEY'   => $api_keys['private'],
         );
+
+        // Log the API call with headers (mask keys for security)
+        if (function_exists('wc_get_logger')) {
+            $logger = wc_get_logger();
+            $logger->info('Calling CodGuard API: ' . $url, array('source' => 'codguard'));
+            $logger->debug(sprintf(
+                'Request Headers - Public Key: %s... (%d chars), Private Key: %s... (%d chars)',
+                substr($api_keys['public'], 0, 10),
+                strlen($api_keys['public']),
+                substr($api_keys['private'], 0, 10),
+                strlen($api_keys['private'])
+            ), array('source' => 'codguard'));
+        }
 
         $response = wp_remote_get($url, array(
             'timeout' => 10,
@@ -146,11 +160,15 @@ class CodGuard_Checkout_Validator {
         
         $status_code = wp_remote_retrieve_response_code($response);
         $body = wp_remote_retrieve_body($response);
-        
-        // Log response
+        $response_headers = wp_remote_retrieve_headers($response);
+
+        // Log response with headers
         if (function_exists('wc_get_logger')) {
             $logger = wc_get_logger();
             $logger->info('API Response: Status=' . $status_code . ' Body=' . $body, array('source' => 'codguard'));
+            if ($status_code !== 200) {
+                $logger->debug('Response Headers: ' . print_r($response_headers, true), array('source' => 'codguard'));
+            }
         }
         
         // 404 = new customer, allow

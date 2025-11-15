@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.3] - 2025-11-15
+
+### Added
+- **Enhanced API Debugging**: More detailed logging for troubleshooting 403 errors
+  - Validates API keys are not empty before making requests
+  - Logs API key lengths (first 10 chars shown for security)
+  - Logs response headers when API returns non-200 status
+  - Helps identify authentication issues
+
+### Notes
+- If you're getting 403 errors, check the debug logs for:
+  - API key lengths to ensure they're properly saved
+  - Response headers for additional error details
+  - Ensure both public and private API keys are configured correctly
+
+---
+
 ## [2.2.2] - 2025-11-15
 
 ### Fixed
